@@ -1,5 +1,7 @@
 FROM ubuntu
 
+RUN groupadd -r bitcoin && useradd -r -m -g bitcoin bitcoin
+
 ENV BITCOIN_PGP_KEY 01EA5486DE18A882D4C2684590C8019E36C2E964
 
 ENV BITCOIN_URL https://bitcoin.org/bin/bitcoin-core-0.21.1/
@@ -35,10 +37,10 @@ RUN rm -rf /tmp/*
 # RUN install -m 0755 -o root -g root -t /usr/local/bin/ bitcoin-0.20.1/bin/*
 
 ENV BITCOIN_DATA /data
-RUN mkdir "$BITCOIN_DATA" \
-    && chown -R bitcoin:bitcoin "$BITCOIN_DATA" \
-    && ln -sfn "$BITCOIN_DATA" /home/bitcoin/.bitcoin \
-    && chown -h bitcoin:bitcoin /home/bitcoin/.bitcoin
+RUN mkdir "$BITCOIN_DATA" 
+RUN chown -R bitcoin:bitcoin "$BITCOIN_DATA" 
+RUN ln -sfn "$BITCOIN_DATA" /home/bitcoin/.bitcoin 
+RUN chown -h bitcoin:bitcoin /home/bitcoin/.bitcoin
 VOLUME /data
 
 ADD entrypoint.sh /entrypoint.sh
