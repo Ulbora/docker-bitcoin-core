@@ -9,7 +9,7 @@ ENV BITCOIN_ASC_URL https://bitcoin.org/bin/bitcoin-core-0.21.1/SHA256SUMS.asc
 
 
 RUN apt-get update  
-RUN apt install wget
+RUN apt-get install -y wget
 
 
 RUN wget "$BITCOIN_URL$BITCOIN_FILE"
