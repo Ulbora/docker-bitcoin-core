@@ -27,7 +27,9 @@ RUN set -ex \
     && sha256sum --ignore-missing --check SHA256SUMS.asc \
     && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt \
     && rm -rf /tmp/* \
-    && ls -l
+    && ls -l \
+    && cd / \
+    && ls -l /usr/local/bin
 
 
 
