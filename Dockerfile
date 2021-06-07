@@ -19,7 +19,8 @@ RUN apt-get install -y gpg
 RUN set -ex \
     && cd /tmp \
     && wget "$BITCOIN_URL$BITCOIN_FILE" \
-    && wget "$BITCOIN_ASC_URL"
+    && wget "$BITCOIN_ASC_URL" \
+    && ls -l
 
 # RUN wget "$BITCOIN_URL$BITCOIN_FILE"
 # RUN wget "$BITCOIN_ASC_URL"
@@ -30,13 +31,14 @@ RUN ls -l
 
 RUN set -ex \
     && cd /tmp \
-    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" \
+    && sha256sum --ignore-missing --check SHA256SUMS.asc 
 
 # RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
 
-RUN set -ex \
-    && cd /tmp \
-    && sha256sum --ignore-missing --check SHA256SUMS.asc 
+# RUN set -ex \
+#     && cd /tmp \
+#     && sha256sum --ignore-missing --check SHA256SUMS.asc 
 # RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
 
 RUN set -ex \
