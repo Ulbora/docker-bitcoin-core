@@ -25,28 +25,15 @@ RUN set -ex \
     && gpg --verify SHA256SUMS.asc \
     && sha256sum "$BITCOIN_FILE" \
     && sha256sum --ignore-missing --check SHA256SUMS.asc \
-    && ls -l /usr/local/bin \
-    && ls -l /usr/local/lib \
+    # && ls -l /usr/local/bin \
+    # && ls -l /usr/local/lib \
     && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt \
-    && ls -l ../usr/local/bin \
-    && ls -l ../usr/local/lib \
-    && ls -l \
-    && rm -rf /tmp/* \
-    && ls -l 
-# && cd / \
-# && ls -l /usr/local/bin
+    # && ls -l ../usr/local/bin \
+    # && ls -l ../usr/local/lib \
+    # && ls -l \
+    && rm -rf /tmp/* 
+# && ls -l 
 
-
-
-# RUN set -ex ls -l
-
-# RUN set -ex ls -l /tmp
-
-# RUN set -ex ls -l /usr/local
-
-# RUN set -ex ls -l /usr/local/bin
-
-# RUN set -ex ls -l /usr/local/lib
 
 
 
