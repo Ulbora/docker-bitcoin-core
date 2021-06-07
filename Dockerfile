@@ -16,11 +16,16 @@ RUN apt-get install -y ca-certificates
 
 RUN apt-get install -y gpg
 
+RUN set -ex 
+RUN cd /tmp 
+
 RUN wget "$BITCOIN_URL$BITCOIN_FILE"
 RUN wget "$BITCOIN_ASC_URL"
 
-RUN set -ex 
-RUN cd /tmp 
+# RUN set -ex 
+# RUN cd /tmp 
+RUN ls -l
+
 RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
 RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
 RUN gpg --verify SHA256SUMS.asc 
