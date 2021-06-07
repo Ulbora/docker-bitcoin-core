@@ -63,6 +63,7 @@ RUN set -ex \
 
 # RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
 
+RUN ls -l
 
 
 RUN ls -l /tmp
@@ -77,6 +78,8 @@ RUN set -ex \
 RUN ls -l /usr/local
 
 RUN ls -l /tmp
+
+RUN ls -l
 
 RUN set -ex \
     && cd /tmp \
