@@ -38,6 +38,8 @@ RUN ls -l /tmp
 
 RUN ls -l /usr/local
 
+RUN ls -l /usr/local/bin
+
 
 RUN set -ex \
     && cd /tmp \
@@ -46,10 +48,14 @@ RUN set -ex \
     && gpg --verify SHA256SUMS.asc \
     && sha256sum "$BITCOIN_FILE" \
     && sha256sum --ignore-missing --check SHA256SUMS.asc \
-    && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
+    && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt \
+    && rm -rf /tmp/* 
 
 
 
+
+RUN ls -l /usr/local/bin
+RUN ls -l /usr/local/lib
 
 # RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
 
@@ -94,9 +100,9 @@ RUN ls -l /tmp
 
 RUN ls -l
 
-RUN set -ex \
-    && cd /tmp \
-    && rm -rf /tmp/* 
+# RUN set -ex \
+#     && cd /tmp \
+#     && rm -rf /tmp/* 
 
 RUN ls -l /tmp
 # RUN rm -rf /tmp/*
