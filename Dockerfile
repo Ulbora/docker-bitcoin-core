@@ -35,7 +35,8 @@ RUN set -ex \
     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" \
     && sha256sum --ignore-missing --check SHA256SUMS.asc \
     && gpg --verify SHA256SUMS.asc \
-    && sha256sum "$BITCOIN_FILE" 
+    && sha256sum "$BITCOIN_FILE" \
+    && sha256sum --ignore-missing --check SHA256SUMS.asc 
 
 # RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
 
@@ -56,16 +57,24 @@ RUN set -ex \
 
 # RUN sha256sum "$BITCOIN_FILE" 
 
-RUN set -ex \
-    && cd /tmp \
-    && sha256sum --ignore-missing --check SHA256SUMS.asc 
+# RUN set -ex \
+#     && cd /tmp \
+#     && sha256sum --ignore-missing --check SHA256SUMS.asc 
 
 # RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
+
+
+
+RUN ls -l /tmp
+
+RUN ls -l /usr/local
 
 RUN set -ex \
     && cd /tmp \
     && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
 # RUN tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
+
+RUN ls -l /usr/local
 
 RUN ls -l /tmp
 
