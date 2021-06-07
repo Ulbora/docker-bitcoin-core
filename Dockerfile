@@ -65,7 +65,8 @@ RUN set -ex \
 
 RUN set -ex \
     && cd /tmp \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && ls -l
 # RUN rm -rf /tmp/*
 
 
