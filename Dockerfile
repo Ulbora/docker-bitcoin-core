@@ -16,23 +16,55 @@ RUN apt-get install -y ca-certificates
 
 RUN apt-get install -y gpg
 
-RUN set -ex 
-RUN cd /tmp 
+RUN set -ex \
+    && cd /tmp \
+    && wget "$BITCOIN_URL$BITCOIN_FILE" \
+    && wget "$BITCOIN_ASC_URL"
 
-RUN wget "$BITCOIN_URL$BITCOIN_FILE"
-RUN wget "$BITCOIN_ASC_URL"
+# RUN wget "$BITCOIN_URL$BITCOIN_FILE"
+# RUN wget "$BITCOIN_ASC_URL"
 
 # RUN set -ex 
 # RUN cd /tmp 
 RUN ls -l
 
-RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
-RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
-RUN gpg --verify SHA256SUMS.asc 
-RUN sha256sum "$BITCOIN_FILE" 
-RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
-RUN tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
-RUN rm -rf /tmp/*
+RUN set -ex \
+    && cd /tmp \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
+
+# RUN gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$BITCOIN_PGP_KEY" 
+
+RUN set -ex \
+    && cd /tmp \
+    && sha256sum --ignore-missing --check SHA256SUMS.asc 
+# RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
+
+RUN set -ex \
+    && cd /tmp \
+    && gpg --verify SHA256SUMS.asc 
+
+# RUN gpg --verify SHA256SUMS.asc 
+
+RUN set -ex \
+    && cd /tmp \
+    && sha256sum "$BITCOIN_FILE" 
+
+# RUN sha256sum "$BITCOIN_FILE" 
+
+RUN set -ex \
+    && cd /tmp \
+    && sha256sum --ignore-missing --check SHA256SUMS.asc 
+# RUN sha256sum --ignore-missing --check SHA256SUMS.asc 
+
+RUN set -ex \
+    && cd /tmp \
+    && tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
+# RUN tar -xzvf "$BITCOIN_FILE" -C /usr/local --strip-components=1 --exclude=*-qt 
+
+RUN set -ex \
+    && cd /tmp \
+    && rm -rf /tmp/*
+# RUN rm -rf /tmp/*
 
 
 # RUN wget https://bitcoin.org/bin/bitcoin-core-0.21.1/bitcoin-0.20.1-x86_64-linux-gnu.tar.gz
